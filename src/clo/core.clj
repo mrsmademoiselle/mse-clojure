@@ -16,6 +16,7 @@
   )
 
 (defn start-game []
+  (println "Please make a choice between 'rock', 'paper' and 'scissor'.")
   (let [choices ["rock" "paper" "scissor"]
         computer-choice (nth choices (rand-int 3))
         user-choice (read-line)
@@ -25,8 +26,17 @@
     (println game-result))
   )
 
+(defn another-game []
+  (println "Do you want to play again? (y/n)")
+  (let [play-again (read-line)]
+    (if (or (= play-again "y") (= play-again "Y"))
+      (do
+        (start-game)
+        (recur))
+      (println "Thank you for playing. Goodbye!"))))
+
 (defn -main []
     (println "Welcome to Rock Paper Scissor!")
-    (println "Please make a choice between 'rock', 'paper' and 'scissor'.")
     (start-game)
+    (another-game)
     )
