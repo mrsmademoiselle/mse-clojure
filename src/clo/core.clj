@@ -1,12 +1,23 @@
 (ns clo.core
   (:gen-class))
 
+(defn validate-user-choice [choices user-choice]
+  (try
+    (assert (choices user-choice))
+    (catch AssertionError _
+      (println "Invalid input. Exiting game.")
+      (System/exit 1)))
+  )
+
+
 (defn determine-winner [user-choice computer-choice]
   (let [winning-combinations {
                               "rock" "scissor"
                               "paper" "rock"
                               "scissor" "paper"}
         user-winning-combination (winning-combinations user-choice)]
+    (validate-user-choice winning-combinations user-choice)
+
     (if (= user-winning-combination computer-choice)
         "Congratulations! You have won!"
         (if (= user-choice computer-choice)
